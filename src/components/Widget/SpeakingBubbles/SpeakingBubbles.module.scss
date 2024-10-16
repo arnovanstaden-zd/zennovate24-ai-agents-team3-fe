@@ -3,7 +3,7 @@
     /* Adjusted width proportionally */
     height: 50px;
     /* Increased height to 50px */
-    --_g: no-repeat radial-gradient(farthest-side, #1a1a1a 94%, #0000);
+    --_g: no-repeat radial-gradient(farthest-side, #000000 94%, #0000);
     background:
         var(--_g) 25% 0,
         var(--_g) 75% 0;
@@ -19,7 +19,7 @@
         /* Increased the before pseudo-element to 50px */
         aspect-ratio: 1;
         border-radius: 50%;
-        background: #1a1a1a;
+        background: #000000;
         inset: 0;
         margin: auto;
         animation: l24-1 1s cubic-bezier(0.5, 300, 0.5, -300) infinite;

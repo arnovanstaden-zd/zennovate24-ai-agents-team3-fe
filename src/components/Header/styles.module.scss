@@ -1,0 +1,50 @@
+// Define some color variables
+$background-color: #000000;
+$text-color: #e1e1e1;
+$icon-size: 16px;
+
+.header {
+    background-color: $background-color;
+    padding: 10px 20px;
+    border-bottom: 0.5px solid white;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px; // Adjust spacing between items
+    margin: 0;
+    padding: 0;
+}
+
+.navItem {
+    display: inline-block;
+}
+
+.navLink {
+    color: $text-color;
+    text-decoration: none;
+    font-size: 14px;
+    text-decoration: none;
+
+    &:hover {
+        color: $text-color;
+
+    }
+}
+
+.navIcon {
+    width: 1rem;
+    height: 1rem;
+}

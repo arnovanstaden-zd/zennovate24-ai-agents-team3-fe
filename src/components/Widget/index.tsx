@@ -1,6 +1,4 @@
 import styles from './Widget.module.scss';
-import sparklesSVG from '../assets/sparkles.svg';
-import closeSVG from '../assets/close.svg';
 import { useEffect, useState } from 'react';
 import ThinkingBubbles from './ThinkingBubbles';
 import { useReactMediaRecorder } from 'react-media-recorder';
@@ -74,12 +72,12 @@ const Widget: React.FC = () => {
     <div className={styles.Widget}>
       {!open ? (
         <button className={styles.widgetEntry} onClick={() => setOpen(true)}>
-          <img src={sparklesSVG} alt='' />
+          <img src='/sparkles.svg' alt='' />
         </button>
       ) : (
         <div className={styles.content}>
           <button className={styles.closeButton} onClick={handleClose}>
-            <img src={closeSVG} alt='' />
+            <img src='/close.svg' alt='' />
           </button>
           {status === 'idle' && (
             <div
