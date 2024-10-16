@@ -1,0 +1,108 @@
+.Widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+
+    .widgetEntry {
+        background-color: #000000;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+    }
+
+    img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .content {
+        height: 400px;
+        width: 300px;
+        background-color: white;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .closeButton {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            outline: none;
+
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+
+        .startRecording {
+            background-color: #1a1a1a;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            cursor: pointer;
+        }
+
+        .recording {
+            color: #1a1a1a;
+            cursor: pointer;
+
+            .recordCircle {
+                width: 200px;
+                height: 200px;
+
+                .circle {
+                    animation: recordingAnimation 1.5s infinite ease-in-out;
+                    background-color: #1a1a1a;
+                    border-radius: 50%;
+                    width: 200px;
+                    height: 200px;
+                    transform-origin: center;
+                }
+
+            }
+
+            h4 {
+                margin-bottom: 0;
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .thinking {
+            color: #1a1a1a;
+
+        }
+    }
+}
+
+@keyframes recordingAnimation {
+    0% {
+        background-color: #1a1a1a;
+        transform: scale(1);
+    }
+
+    50% {
+        background-color: #343434;
+        transform: scale(0.9);
+    }
+
+    100% {
+        background-color: #1a1a1a;
+        transform: scale(1);
+    }
+}

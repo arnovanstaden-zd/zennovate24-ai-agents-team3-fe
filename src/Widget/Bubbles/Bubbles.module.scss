@@ -1,0 +1,50 @@
+.Bubbles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 300px;
+    position: relative;
+
+    .bubble {
+        width: 50px;
+        height: 50px;
+        background-color: #1a1a1a;
+        border-radius: 50%;
+        position: absolute;
+        opacity: 0;
+        animation: bubble-animation 1.5s infinite ease-in-out;
+    }
+
+    .bubble1 {
+        left: 0px;
+        animation-delay: 0s;
+    }
+
+    .bubble2 {
+        left: 50px;
+        animation-delay: 0.3s;
+    }
+
+    .bubble3 {
+        left: 200px;
+        animation-delay: 0.6s;
+    }
+
+    @keyframes bubble-animation {
+        0% {
+            opacity: 0.5;
+            transform: translateY(0);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateY(-50px);
+        }
+
+        100% {
+            opacity: 0.5;
+            transform: translateY(0);
+        }
+    }
+}
