@@ -1,5 +1,5 @@
 import styles from './Widget.module.scss';
-import sparklesSVG from '../assets/widget.svg';
+import sparklesSVG from '../assets/sparkles.svg';
 import closeSVG from '../assets/close.svg';
 import { useEffect, useState } from 'react';
 import Bubbles from './Bubbles';
@@ -50,6 +50,17 @@ const Widget: React.FC = () => {
     };
   }, [mediaBlobUrl]);
 
+  const handleClose = () => {
+    setOpen(false);
+    setFetching(false);
+    stopRecording();
+    if (ws) ws.close();
+  };
+
+  useEffect(() => {
+    return () => handleClose();
+  }, []);
+
   const isRecording = status === 'recording';
 
   return (
@@ -60,7 +71,7 @@ const Widget: React.FC = () => {
         </button>
       ) : (
         <div className={styles.content}>
-          <button className={styles.closeButton} onClick={() => setOpen(false)}>
+          <button className={styles.closeButton} onClick={handleClose}>
             <img src={closeSVG} alt='' />
           </button>
           {!fetching ? (
@@ -90,7 +101,7 @@ const Widget: React.FC = () => {
           ) : (
             <div className={styles.thinking}>
               <Bubbles />
-              <p>Thinking...</p>
+              <h4>Thinking...</h4>
             </div>
           )}
         </div>

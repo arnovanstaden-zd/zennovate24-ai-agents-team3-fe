@@ -2,9 +2,10 @@
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    text-align: center;
 
     .widgetEntry {
-        background-color: #000000;
+        background-color: #ffffff;
         width: 4rem;
         height: 4rem;
         border-radius: 50%;
@@ -58,6 +59,7 @@
         .recording {
             color: #1a1a1a;
             cursor: pointer;
+            text-align: center;
 
             .recordCircle {
                 width: 200px;
