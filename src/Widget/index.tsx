@@ -2,16 +2,20 @@ import styles from './Widget.module.scss';
 import sparklesSVG from '../assets/sparkles.svg';
 import closeSVG from '../assets/close.svg';
 import { useEffect, useState } from 'react';
-import Bubbles from './Bubbles';
+import ThinkingBubbles from './ThinkingBubbles';
 import { useReactMediaRecorder } from 'react-media-recorder';
+import SpeakingBubbles from './SpeakingBubbles';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Widget: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [fetching, setFetching] = useState(false);
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({ video: false });
+  const [status, setStatus] = useState<
+    'idle' | 'recording' | 'fetching' | 'speaking'
+  >('idle');
+  const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder(
+    { video: false }
+  );
   let ws: WebSocket;
 
   useEffect(() => {
@@ -20,7 +24,7 @@ const Widget: React.FC = () => {
 
     // Create a new WebSocket connection
     ws = new WebSocket(API_URL || '');
-    setFetching(true);
+    setStatus('fetching');
 
     ws.onopen = () => {
       console.log('WebSocket connection opened');
@@ -35,6 +39,11 @@ const Widget: React.FC = () => {
           });
         })
         .catch((error) => console.error('Error fetching media:', error));
+
+      // remove this
+      setTimeout(() => {
+        setStatus('speaking');
+      }, 3000);
     };
 
     ws.onmessage = (event) => {
@@ -52,7 +61,7 @@ const Widget: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setFetching(false);
+    setStatus('idle');
     stopRecording();
     if (ws) ws.close();
   };
@@ -60,8 +69,6 @@ const Widget: React.FC = () => {
   useEffect(() => {
     return () => handleClose();
   }, []);
-
-  const isRecording = status === 'recording';
 
   return (
     <div className={styles.Widget}>
@@ -74,36 +81,39 @@ const Widget: React.FC = () => {
           <button className={styles.closeButton} onClick={handleClose}>
             <img src={closeSVG} alt='' />
           </button>
-          {!fetching ? (
-            !isRecording ? (
-              <div
-                className={styles.startRecording}
-                onClick={() => {
-                  startRecording();
-                }}
-              >
-                Click to start recording
+          {status === 'idle' && (
+            <div
+              className={styles.idle}
+              onClick={() => {
+                startRecording();
+                setStatus('recording');
+              }}
+            >
+              Click to start recording
+            </div>
+          )}
+          {status === 'recording' && (
+            <div
+              className={styles.recording}
+              onClick={() => {
+                stopRecording();
+                setStatus('fetching');
+              }}
+            >
+              <div className={styles.recordCircle}>
+                <div className={styles.circle}></div>
               </div>
-            ) : (
-              <div
-                className={styles.recording}
-                onClick={() => {
-                  stopRecording();
-                }}
-              >
-                <div className={styles.recordCircle}>
-                  <div className={styles.circle}></div>
-                </div>
-                <h4>Recording...</h4>
-                <p>Click to stop</p>
-              </div>
-            )
-          ) : (
+              <h4>Recording...</h4>
+              <p>Click to stop</p>
+            </div>
+          )}
+          {status === 'fetching' && (
             <div className={styles.thinking}>
-              <Bubbles />
+              <ThinkingBubbles />
               <h4>Thinking...</h4>
             </div>
           )}
+          {status === 'speaking' && <SpeakingBubbles />}
         </div>
       )}
     </div>

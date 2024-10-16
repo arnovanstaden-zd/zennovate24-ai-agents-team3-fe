@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import styles from './Bubbles.module.scss';
+import styles from './ThinkingBubbles.module.scss';
 
-const Bubbles: React.FC = () => {
+const ThinkingBubbles: React.FC = () => {
   return (
     <div className={styles.Bubbles}>
       <div className={classNames(styles.bubble, styles.bubble)}></div>
@@ -11,4 +11,4 @@ const Bubbles: React.FC = () => {
   );
 };
 
-export default Bubbles;
+export default ThinkingBubbles;
