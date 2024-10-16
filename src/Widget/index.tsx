@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import Bubbles from './Bubbles';
 import { useReactMediaRecorder } from 'react-media-recorder';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Widget: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [fetching, setFetching] = useState(false);
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({ video: false });
-
   let ws: WebSocket;
 
   useEffect(() => {
@@ -18,15 +19,14 @@ const Widget: React.FC = () => {
     if (!mediaBlobUrl) return;
 
     // Create a new WebSocket connection
-    ws = new WebSocket('ws://localhost:8080');
+    ws = new WebSocket(API_URL || '');
     setFetching(true);
 
     ws.onopen = () => {
       console.log('WebSocket connection opened');
 
-      // Fetch the media content as binary data
       fetch(mediaBlobUrl)
-        .then((response) => response.blob()) // Convert the media URL into a Blob
+        .then((response) => response.blob())
         .then((blob) => {
           // Convert Blob to ArrayBuffer to send as binary data
           blob.arrayBuffer().then((buffer) => {
