@@ -19,12 +19,12 @@ const Widget: React.FC = () => {
 
     // Create a new WebSocket connection
     ws = new WebSocket('ws://localhost:8080');
+    setFetching(true);
 
     ws.onopen = () => {
       console.log('WebSocket connection opened');
 
       // Fetch the media content as binary data
-      setFetching(true);
       fetch(mediaBlobUrl)
         .then((response) => response.blob()) // Convert the media URL into a Blob
         .then((blob) => {
